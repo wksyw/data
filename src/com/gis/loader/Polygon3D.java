@@ -295,7 +295,7 @@ if(lon=="")
 			}
 
 			posList.setText(Features1);
-			Features2s.add(Features2);
+			Features2s.add(Features2+"|"+namecopy);
 
 		}
 		root.getRootElement().add((Element)cityObjectMember.clone());
@@ -356,12 +356,10 @@ if(lon=="")
 	}
 
 	public static void main(String[] args) throws IOException {
-		File path = new File("");
-		System.out.println(path.getAbsolutePath());
-		System.out.println(path.getCanonicalPath());
-		File file = new File(new File(path.getCanonicalPath()),/*File.separator +*/"src"/*+File.separator*/);
-		System.out.println(file.getCanonicalPath());
-		System.out.println(file.getAbsolutePath());
+		String destPath = "D:\\oo\\oo";
+		if (!new File(destPath).exists()) {
+			new File(destPath).mkdirs();
+		}
 	}
 
 	public static void toShp(String fileNameNow){
@@ -369,10 +367,10 @@ if(lon=="")
 		try {
 			File path = new File("");
 			File filePath = new File(new File(path.getCanonicalPath()),"shp");
-			FileUtils.dirCopy(filePath.getCanonicalPath(), TransformPanel.outputPath+File.separator+"shp");
+			FileUtils.dirCopy(filePath.getCanonicalPath(), TransformPanel.outputPath,fileNameNow);
 			// 向空白shp中插入记录
 			//File file = new File("D:\\数据部小程序\\高\\gmltest\\shp模板\\template.shp");
-			File file = new File(TransformPanel.outputPath+File.separator+"shp"+File.separator+"template.shp");
+			File file = new File(TransformPanel.outputPath+File.separator+fileNameNow+".shp");
 			FileDataStore dataStore = null;
 			SimpleFeatureIterator iter = null;
 			FileDataStore filedataStore = FileDataStoreFinder
@@ -399,10 +397,12 @@ if(lon=="")
 
 			for (int j = 0; j <  Features2s.size(); j++) {
 				String Features2=	Features2s.get(j);
+				String[] featureArr = Features2.split("\\|");
 				Geometry poly = reader
-						.read(Features2);
+						.read(featureArr[0]);
 				Object[] obj = { poly };
 				SimpleFeature feature = featureBuilder.buildFeature(null, obj);
+				feature.setAttribute("NAME",featureArr[1]);
 				features.add(feature);
 			}
 

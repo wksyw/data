@@ -47,6 +47,15 @@ public class ObjectLoader {
 
 	}
 
+	public static void clear(){
+		vertices.clear();
+		coordinates.clear();
+		normals.clear();
+		materials.clear();
+		Polygon3D.root=null;
+		Polygon3D.Features2s.clear();
+	}
+
 	/**
 	 * Creates a new ObjectLoader.
 	 */

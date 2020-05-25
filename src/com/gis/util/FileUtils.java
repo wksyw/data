@@ -3,16 +3,17 @@ package com.gis.util;
 import java.io.*;
 
 public class FileUtils {
-    public static void dirCopy(String srcPath, String destPath) {
+    public static void dirCopy(String srcPath, String destPath,String fileName) {
         File src = new File(srcPath);
         if (!new File(destPath).exists()) {
             new File(destPath).mkdirs();
         }
         for (File s : src.listFiles()) {
             if (s.isFile()) {
-                fileCopy(s.getPath(), destPath + File.separator + s.getName());
+                String ext = s.getName().substring(s.getName().indexOf("."));
+                fileCopy(s.getPath(), destPath + File.separator + fileName+ext);
             } else {
-                dirCopy(s.getPath(), destPath + File.separator + s.getName());
+                dirCopy(s.getPath(), destPath + File.separator + s.getName(),fileName);
             }
         }
     }

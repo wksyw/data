@@ -262,6 +262,7 @@ public class TransformPanel extends JPanel {
 						String filePath;
 						//±éÀúÎÄ¼ş
 						for (int j = 0; j < fileListModel.size(); j++) {
+							ObjectLoader.clear();
 							filePath = (String) fileListModel.get(j);
 
 
