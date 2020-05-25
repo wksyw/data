@@ -83,6 +83,7 @@ public class TransformPanel extends JPanel {
 
 	private JTextField exportText1;
 	private JTextField exportText2;
+	private JTextField exportText3;
 
 	private JButton exportBrowse;
 	private JButton exportButton;
@@ -123,6 +124,7 @@ public class TransformPanel extends JPanel {
 		//加入输入经纬度偏移的框
 		exportText1 = new JTextField("");
 		exportText2 = new JTextField("");
+		exportText3 = new JTextField("");
 		exportBrowse = new JButton("browse");
 		exportButton = new JButton("export");
 		loadButton = new JButton("load");
@@ -193,9 +195,17 @@ public class TransformPanel extends JPanel {
 				c = GuiUtil.setConstraints(1, 1, 0.0, 0.0,
 						GridBagConstraints.NONE, 0, 5, 5, 5);
 				c.anchor = GridBagConstraints.WEST;
-				  exportText2=new JTextField("0",30);
+				exportText2=new JTextField("0",30);
 				filterPanel.add(exportText2, c);
 
+				label = new JLabel("偏移高度:");
+				filterPanel.add(label, GuiUtil.setConstraints(0, 2, 0.0, 0.0,
+						GridBagConstraints.BOTH, 0, 5, 5, 5));
+				c = GuiUtil.setConstraints(1, 2, 0.0, 0.0,
+						GridBagConstraints.NONE, 0, 5, 5, 5);
+				c.anchor = GridBagConstraints.WEST;
+				exportText3=new JTextField("0",30);
+				filterPanel.add(exportText3, c);
 
 				label = new JLabel("");
 				c = GuiUtil.setConstraints(0, 3, 1.0, 0.0,
@@ -324,21 +334,24 @@ public class TransformPanel extends JPanel {
 
 							String lon = "0";
 							String lat = "0";
+							String high = "0";
 							lon = exportText1.getText();
 							lat = exportText2.getText();
+							high = exportText3.getText();
 							if (exportText1.getText().trim().equals("")) {
 //空的情况执行
 								// info.info("偏移不能为空，若不偏移请保留0");
 								lon = "0";
-							} else {
-//不空的情况执行
 							}
 							if (exportText2.getText().trim().equals("")) {
 //空的情况执行
 								// info.info("偏移不能为空，若不偏移请保留0");
 								lat = "0";
-							} else {
-//不空的情况执行
+							}
+							if (exportText3.getText().trim().equals("")) {
+//空的情况执行
+								// info.info("偏移不能为空，若不偏移请保留0");
+								high = "0";
 							}
 //							if (lon == null || lon == "");
 //							{
@@ -360,13 +373,13 @@ public class TransformPanel extends JPanel {
 								String upperCornerxyz[] = upperCorner.split(" ");
 								lowerCornerxyz[0] = String.valueOf(Double.parseDouble(lowerCornerxyz[0]) + Double.parseDouble(lon));
 								lowerCornerxyz[1] = String.valueOf(Double.parseDouble(lowerCornerxyz[1]) + Double.parseDouble(lat));
-								lowerCornerxyz[3] = String.valueOf(Double.parseDouble(lowerCornerxyz[3]));
+								lowerCornerxyz[3] = String.valueOf(Double.parseDouble(lowerCornerxyz[3]) + Double.parseDouble(high));
 								lowerCorner = lowerCornerxyz[0] + " " + lowerCornerxyz[1] + " " + lowerCornerxyz[3];
 								upperCornerxyz[0] = String.valueOf(Double.parseDouble(upperCornerxyz[0]) + Double.parseDouble(lon));
 								upperCornerxyz[1] = String.valueOf(Double.parseDouble(upperCornerxyz[1]) + Double.parseDouble(lat));
-								upperCornerxyz[3] = String.valueOf(Double.parseDouble(upperCornerxyz[3]));
+								upperCornerxyz[3] = String.valueOf(Double.parseDouble(upperCornerxyz[3]) + Double.parseDouble(high));
 								upperCorner = upperCornerxyz[0] + " " + upperCornerxyz[1] + " " + upperCornerxyz[3];
-								group.print0(lon, lat, lowerCorner, upperCorner, fileNameNow);
+								group.print0(lon, lat,high, lowerCorner, upperCorner, fileNameNow);
 							}
 							Polygon3D.writeXml(Polygon3D.root, outputPath+File.separator+fileNameNow+".gml");
 							Polygon3D.toShp(fileNameNow);

@@ -156,7 +156,7 @@ public class Polygon3D {
 
 	public static Document root;
 	public static List<String> Features2s = new ArrayList<>();
-	public static void print1(List ALL,String lon,String lat,String lowerCorner,String upperCorner,String namecopy,String fileNameNow) throws DocumentException, IOException {
+	public static void print1(List ALL,String lon,String lat,String high,String lowerCorner,String upperCorner,String namecopy,String fileNameNow) throws DocumentException, IOException {
 		String Features1="";
 		String Features2="";
 		 String necessary="";
@@ -193,10 +193,11 @@ if(lon=="")
 {
 	lon="0";
 	lat="0";
+	high="0";
 }
-		System.out.println("加入x坐标偏移值"+lon+"加入y坐标偏移值"+lat);
+		System.out.println("加入x坐标偏移值"+lon+"加入y坐标偏移值"+lat+"加入z坐标偏移值"+high);
 		for (int j = 0; j <  ALL.size(); j++) {
-			Element boundedBy1 = cityObjectMember.addElement("bldg:boundedBy");
+			Element boundedBy1 = Building.addElement("bldg:boundedBy");
 			Element WallSurface = boundedBy1.addElement("bldg:WallSurface");
 			//WallSurface.addAttribute("gml:id", uuid);
 			WallSurface.addAttribute("gml:id", "0_31425669-79b4-4105-af89-5e13a2aec202");
@@ -224,7 +225,7 @@ if(lon=="")
 				String point0[] = point[0].split(",");
 				Double lon0 = Double.parseDouble(point0[0].replaceAll("/"," "))+Double.parseDouble(lon);
 				Double lat0 = Double.parseDouble(point0[1].replaceAll("/"," "))+Double.parseDouble(lat);
-				Double len = Double.parseDouble(point0[2].replaceAll("/"," "));
+				Double len = Double.parseDouble(point0[2].replaceAll("/"," "))+Double.parseDouble(high);
 				point[0]=lon0+" "+lat0+" "+len;
 				point[1] =  point[1].replaceAll("\\(", "");
 				point[1] = point[1].replaceAll("\\)", "");
@@ -233,7 +234,7 @@ if(lon=="")
 //				System.out.println(" point0[1].toString();"+ point0[1].toString());
 				Double lon1 = Double.parseDouble(point1[0].replaceAll("/"," "))+Double.parseDouble(lon);
 				Double lat1 = Double.parseDouble(point1[1].replaceAll("/"," "))+Double.parseDouble(lat);
-				Double len1 = Double.parseDouble(point1[2].replaceAll("/"," "));
+				Double len1 = Double.parseDouble(point1[2].replaceAll("/"," "))+Double.parseDouble(high);
 				point[1]=lon1+" "+lat1+" "+len1;
 				point[2] =  point[2].replaceAll("\\(", "");
 				point[2] = point[2].replaceAll("\\)", "");
@@ -241,7 +242,7 @@ if(lon=="")
 				String point2[] = point[2].split(",");
 				Double lon2 = Double.parseDouble(point2[0].replaceAll("/"," "))+Double.parseDouble(lon);
 				Double lat2 = Double.parseDouble(point2[1].replaceAll("/"," "))+Double.parseDouble(lat);
-				Double len2 = Double.parseDouble(point2[2].replaceAll("/"," "));
+				Double len2 = Double.parseDouble(point2[2].replaceAll("/"," "))+Double.parseDouble(high);
 				point[2]=lon2+" "+lat2+" "+len2;
 				Features1=point[0] + " " + point[1 ] + " " + point[2 ] + " " + point[0];
 				//System.out.println("循环转换Feature-----" + Features1);
@@ -259,7 +260,7 @@ if(lon=="")
 //				System.out.println(" point0[1].toString();"+ point0[4].toString());
 				Double lon0 = Double.parseDouble(point0[0].replaceAll("/"," "))+Double.parseDouble(lon);
 				Double lat0 = Double.parseDouble(point0[1].replaceAll("/"," "))+Double.parseDouble(lat);
-				Double len = Double.parseDouble(point0[2].replaceAll("/"," "));
+				Double len = Double.parseDouble(point0[2].replaceAll("/"," "))+Double.parseDouble(high);
 				point[0]=lon0+" "+lat0+" "+len;
 				point[1] =  point[1].replaceAll("\\(", "");
 				point[1] = point[1].replaceAll("\\)", "");
@@ -270,7 +271,7 @@ if(lon=="")
 //				System.out.println(" point0[1].toString();"+ point0[1].toString());
 				Double lon1 = Double.parseDouble(point1[0].replaceAll("/"," "))+Double.parseDouble(lon);
 				Double lat1 = Double.parseDouble(point1[1].replaceAll("/"," "))+Double.parseDouble(lat);
-				Double len1 = Double.parseDouble(point1[2].replaceAll("/"," "));
+				Double len1 = Double.parseDouble(point1[2].replaceAll("/"," "))+Double.parseDouble(high);
 				point[1]=lon1+" "+lat1+" "+len1;
 				point[2] =  point[2].replaceAll("\\(", "");
 				point[2] = point[2].replaceAll("\\)", "");
@@ -278,7 +279,7 @@ if(lon=="")
 				String point2[] = point[2].split(",");
 				Double lon2 = Double.parseDouble(point2[0].replaceAll("/"," "))+Double.parseDouble(lon);
 				Double lat2 = Double.parseDouble(point2[1].replaceAll("/"," "))+Double.parseDouble(lat);
-				Double len2 = Double.parseDouble(point2[2].replaceAll("/"," "));
+				Double len2 = Double.parseDouble(point2[2].replaceAll("/"," "))+Double.parseDouble(high);
 				point[2]=lon2+" "+lat2+" "+len2;
 				point[3] =  point[3].replaceAll("\\(", "");
 				point[3] = point[3].replaceAll("\\)", "");
@@ -286,7 +287,7 @@ if(lon=="")
 				String point3[] = point[3].split(",");
 				Double lon3 = Double.parseDouble(point3[0].replaceAll("/"," "))+Double.parseDouble(lon);
 				Double lat3 = Double.parseDouble(point3[1].replaceAll("/"," "))+Double.parseDouble(lat);
-				Double len3 = Double.parseDouble(point3[2].replaceAll("/"," "));
+				Double len3 = Double.parseDouble(point3[2].replaceAll("/"," "))+Double.parseDouble(high);
 				point[3]=lon3+" "+lat3+" "+len3;
 				Features1=point[0] + " " + point[1 ] + " " + point[2 ] + " " + point[3 ] +" "+ point[0];
 				//System.out.println("循环转换Feature-----" + Features1);

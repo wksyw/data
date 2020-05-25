@@ -167,12 +167,12 @@ public class PolygonGroup {
 		}
 		return boundedBy;
 	}
-	public void print0(String lon,String lat,String lowerCorner,String upperCorner,String fileNameNow) throws IOException, DocumentException {
+	public void print0(String lon,String lat,String high,String lowerCorner,String upperCorner,String fileNameNow) throws IOException, DocumentException {
 
 
 		List ALL=print();
 		 namecopy =printname();
-	    Polygon3D.print1(ALL,lon,lat,lowerCorner,upperCorner,namecopy,fileNameNow);
+	    Polygon3D.print1(ALL,lon,lat,high,lowerCorner,upperCorner,namecopy,fileNameNow);
 	};
 	public List<String> print() throws IOException, DocumentException {
 		for (int i = 0; i < objects.size(); i++) {
